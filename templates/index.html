@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add these CSS rules to your existing styles.css file */
+
+.expense-total {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.expense-total h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#total-amount {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+/* Reset some default browser styles */
+body, h1, h2, ul, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.expense-form, .expense-list {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.expense-list ul {
+    list-style: none;
+}
+
+.expense-list li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.expense-description,
+.expense-amount,
+.expense-date {
+    flex: 1;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #333;
+    color: #fff;
+}
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>Expense Manager</h1>
+    </header>
+    <main>
+        <section class="expense-form">
+            <h2>Add Expense</h2>
+            <form method='POST'>
+                {% csrf_token %}
+                <div class="form-control">
+                    <label for="expense-description">Description:</label>
+                    <input type="text" id="expense-description" name="expense-description" required>
+                </div>
+                <div class="form-control">
+                    <label for="expense-amount">Amount:</label>
+                    <input type="number" id="expense-amount" name="expense-amount" required>
+                </div>
+                <div class="form-control">
+                    <label for="expense-date">Date:</label>
+                    <input type="date" id="expense-date" name="expense-date" required>
+                </div>
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+        <section class="expense-list">
+            <h2>Expense List</h2>
+
+            <ul>
+                {%for j in dd%}
+                <li>
+                    <span class="expense-description">{{j.description}}</span>
+                    <span class="expense-amount">{{j.Amount}}</span>
+                    <span class="expense-date">{{j.date}}</span>
+                </li>
+                {%endfor%}
+            </ul>
+            
+        </section>
+    </main>
+    <!-- Add this element below your expense list -->
+<section class="expense-total">
+    <h2>Total Amount</h2>
+    <p id="total-amount">{{add}}</p>
+</section>
+
+    <footer>
+        <p>&copy; 2023 Expense Manager</p>
+    </footer>
+</body>
+</html>
